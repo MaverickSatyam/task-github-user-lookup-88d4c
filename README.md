@@ -1,11 +1,14 @@
 # GitHub User Creation Date Checker
 
-This is a single-page web application built with Bootstrap 5 that allows users to fetch the GitHub account creation date for a given username. By default, it displays the creation date for the 'google' GitHub account.
+This is a single-page web application built with Bootstrap 5 that allows users to fetch the GitHub account creation date and age for a given username.
 
 ## Features
 
 *   **Fetch GitHub User Data:** Retrieves the `created_at` date for any valid GitHub username.
-*   **Default Username:** Automatically fetches data for 'google' on page load.
+*   **Display Account Age:** Calculates and displays the account's age in whole years alongside the creation date.
+*   **ARIA Live Alerts:** Provides real-time announcements for screen readers when a lookup starts, succeeds, or fails, enhancing accessibility.
+*   **Persistent Username:** Caches the last successfully looked-up username in `localStorage` and automatically populates the input field on subsequent visits.
+*   **Default Username:** Automatically fetches data for the 'google' GitHub account if no cached username is found or if the input is empty.
 *   **Date Formatting:** Displays the creation date in `YYYY-MM-DD UTC` format.
 *   **Error Handling:** Provides user-friendly messages for invalid usernames or API issues.
 *   **Responsive Design:** Styled with Bootstrap 5 for a clean and responsive user interface.
@@ -13,19 +16,22 @@ This is a single-page web application built with Bootstrap 5 that allows users t
 ## How to Use
 
 1.  **Open `index.html`:** Simply open the `index.html` file in your web browser.
-2.  **Default Display:** On load, the application will display the creation date for the 'google' GitHub account.
+2.  **Default/Cached Display:** On load, the application will display data for the last successfully searched username (if available) or for the 'google' GitHub account.
 3.  **Enter Username:** Type a GitHub username into the input field.
-4.  **Fetch Data:** Click the "Fetch Creation Date" button to retrieve and display the creation date for the entered username.
+4.  **Fetch Data:** Click the "Fetch Creation Date" button to retrieve and display the creation date and age for the entered username.
 
 ## Technical Details
 
 *   **HTML5:** Standard page structure.
-*   **Bootstrap 5 (CDN):** Used for styling and responsive layout.
+*   **Bootstrap 5 (CDN):** Used for styling and responsive layout, including the `visually-hidden` utility class for accessibility.
 *   **JavaScript:** Handles form submission, API calls, and DOM updates.
     *   Fetches data from `https://api.github.com/users/`.
     *   Uses `async/await` for asynchronous operations.
     *   `DOMContentLoaded` listener ensures all DOM elements are loaded before script execution.
     *   Date formatting leverages `Date.toISOString().split('T')[0]` to extract the `YYYY-MM-DD` part.
+    *   **Accessibility:** Implements `aria-live="polite"` regions for dynamic content updates, improving usability for screen reader users.
+    *   **Client-side Caching:** Utilizes `localStorage` to persist user preferences (last searched username) under the key "github-user-88d4c".
+    *   **Account Age Calculation:** Dynamically calculates the difference between the account creation date and the current date in whole years.
 
 ## Project Structure
 
